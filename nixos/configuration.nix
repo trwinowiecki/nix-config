@@ -154,6 +154,10 @@
   # Fonts
   fonts.packages = with pkgs; [ meslo-lgs-nf ];
 
+  # Shell
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
