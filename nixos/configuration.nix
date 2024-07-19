@@ -189,6 +189,7 @@
     zsh
 
     # MISC
+    home-manager
     gnome.gnome-tweaks
     gtk-engine-murrine
     xdg-utils
