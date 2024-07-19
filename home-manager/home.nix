@@ -5,7 +5,6 @@
 , lib
 , config
 , pkgs
-, fonts
 , ...
 }: {
   # You can import other home-manager modules here
@@ -126,9 +125,6 @@
       name = "open-nautilus";
     };
   };
-
-  # Fonts
-  fonts.packages = with pkgs; [ meslo-lgs-nf ];
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
