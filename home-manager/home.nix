@@ -80,6 +80,7 @@
 
     shellAliases = {
       update = "sudo nixos-rebuild switch";
+      update-flake = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos; home-manager switch --flake ~/dotfiles/nix-config#taylor@hp-nixos";
       ls = "exa -la";
       cat = "bat";
       please = "sudo !!";
