@@ -175,6 +175,7 @@
     supabase-cli
     vim
     yarn
+    python3
 
     # nvim Tools
     fd
@@ -194,6 +195,7 @@
     xclip
     zoxide
     zsh
+    gnumake
 
     # MISC
     home-manager
@@ -201,6 +203,8 @@
     gtk-engine-murrine
     xdg-utils
     quickemu
+    solaar
+    gnomeExtensions.solaar-extension
   ];
 
   programs.kdeconnect = {
