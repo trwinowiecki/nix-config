@@ -19,7 +19,7 @@ in rec {
       };
       modules = [
         config
-        outputs.modules.nixos.default
+        outputs.nixosModules.default
       ];
     };
 
@@ -31,7 +31,7 @@ in rec {
       };
       modules = [
         config
-        outputs.modules.home-manager.default
+        outputs.modules.homeManagerModules.default
       ];
     };
 
