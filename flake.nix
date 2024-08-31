@@ -50,7 +50,7 @@
         # NixOS configuration entrypoint
         # Available through 'nixos-rebuild --flake .#your-hostname'
         nixosConfigurations = {
-          laptop = mkSystem ./hosts/laptop/configuration.nix;
+          hp-nixos = mkSystem ./hosts/laptop/configuration.nix;
         };
 
         # Standalone home-manager configuration entrypoint
