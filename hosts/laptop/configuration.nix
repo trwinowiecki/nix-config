@@ -9,8 +9,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
-  ]
-  ++ (myLib.filesIn ./included);
+  ];
 
   myNixOs = {
     canon-printer.enable = true;
