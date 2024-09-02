@@ -15,6 +15,10 @@
     ./cmp/autopairs.nix
     ./cmp/cmp.nix
     ./cmp/lspkind.nix
+
+    ./editor/treesitter.nix
+
+    ./utils/telescope.nix
   ];
 
   programs.nixvim = {
