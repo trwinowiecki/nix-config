@@ -11,7 +11,7 @@
     ./hardware-configuration.nix
   ];
 
-  myNixOs = {
+  myNixOS = {
     canon-printer.enable = true;
   };
 
@@ -102,7 +102,7 @@
     eslint_d
     git
     lazygit
-    neovim
+    # neovim
     nodejs
     prettierd
     stylua

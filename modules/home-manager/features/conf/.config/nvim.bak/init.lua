@@ -1,0 +1,1 @@
+require("azarath.core")

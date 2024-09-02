@@ -2,12 +2,14 @@
   inputs, 
   outputs, 
   pkgs, 
+  pkgsUnstable, 
   lib, 
+  user,
   ...
 }: {
   imports = [
     outputs.homeManagerModules.default
-    inputs.nixvim.homeManagerModules.nixvim
+    ../../modules/home-manager/nixvim
   ];
 
   nixpkgs = {
@@ -21,7 +23,15 @@
   home = {
     username = "taylor";
     homeDirectory = lib.mkDefault "/home/taylor/";
-    packages = with pkgs; [ discord gimp inkscape kitty libreoffice ];
+    packages = (with pkgs; [
+      discord
+      gimp
+      inkscape
+      kitty
+      libreoffice
+    ]) ++ (with pkgsUnstable; [
+        # neovim
+      ]);
   };
 
   # Enable home-manager and git
@@ -30,17 +40,6 @@
     enable = true;
     userName = "trwinowiecki";
     userEmail = "trw0511@gmail.com";
-  };
-
-  programs.nixvim = {
-    enable = true;
-    # plugins = [
-    #   pkgs.vimPlugins.flash-nvim
-    #   pkgs.vimPlugins.nvim-lspconfig
-    #   pkgs.vimPlugins.mason-lspconfig-nvim
-    #   pkgs.vimPlugins.luasnip
-    # ];
-    # extraLuaPackages = ps: [ ps.jsregexp ];
   };
 
   # Shell
@@ -52,7 +51,7 @@
 
     shellAliases = {
       update = "sudo nixos-rebuild switch";
-      update-flake = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos; home-manager switch --flake ~/dotfiles/nix-config#taylor@hp-nixos";
+      update-flake = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos; home-manager switch --flake ~/dotfiles/nix-config#taylor";
       ls = "exa -la";
       cat = "bat";
       please = "sudo !!";

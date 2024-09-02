@@ -9,6 +9,7 @@ in rec {
   # ======================= Package Helpers ======================== #
 
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
+  pkgsUnstableFor = sys: inputs.nixpkgs-unstable.legacyPackages.${sys};
 
   # ========================== Buildables ========================== #
 
@@ -28,10 +29,11 @@ in rec {
       pkgs = pkgsFor sys;
       extraSpecialArgs = {
         inherit inputs myLib outputs;
+        pkgsUnstable = pkgsUnstableFor sys;
       };
       modules = [
         config
-        outputs.modules.homeManagerModules.default
+        outputs.homeManagerModules.default
       ];
     };
 
