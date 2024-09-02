@@ -18,6 +18,8 @@
 
     ./editor/treesitter.nix
 
+    ./snippets/luasnip.nix
+
     ./utils/telescope.nix
   ];
 
