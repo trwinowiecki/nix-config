@@ -1,11 +1,10 @@
-{ 
-  inputs,
-  outputs,
-  lib,
-  config,
-  pkgs,
-  myLib,
-  ...
+{ inputs
+, outputs
+, lib
+, config
+, pkgs
+, myLib
+, ...
 }: {
   imports = [
     ./hardware-configuration.nix
@@ -69,7 +68,6 @@
   };
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
