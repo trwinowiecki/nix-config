@@ -1,15 +1,14 @@
-{ 
-  inputs, 
-  outputs, 
-  pkgs, 
-  pkgsUnstable, 
-  lib, 
-  user,
-  ...
+{ inputs
+, outputs
+, pkgs
+, pkgsUnstable
+, lib
+, user
+, ...
 }: {
   imports = [
     outputs.homeManagerModules.default
-    ../../modules/home-manager/nixvim
+    # ../../modules/home-manager/nixvim
   ];
 
   nixpkgs = {
@@ -23,13 +22,17 @@
   home = {
     username = "taylor";
     homeDirectory = lib.mkDefault "/home/taylor/";
-    packages = (with pkgs; [
-      discord
-      gimp
-      inkscape
-      kitty
-      libreoffice
-    ]) ++ (with pkgsUnstable; [
+    packages =
+      (with pkgs; [
+        discord
+        gimp
+        inkscape
+        blender
+        kitty
+        libreoffice
+        neovim
+      ])
+      ++ (with pkgsUnstable; [
         # neovim
       ]);
   };

@@ -42,7 +42,7 @@
     plugins.conform-nvim = {
       enable = true;
       settings = {
-        format_on_save = ''
+        format_on_save.__raw = ''
           function(bufnr)
             if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
               return
@@ -62,7 +62,7 @@
            end
         '';
 
-        format_after_save = ''
+        format_after_save.__raw = ''
           function(bufnr)
             if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
               return
