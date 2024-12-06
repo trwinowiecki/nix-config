@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -18,13 +18,14 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = {...} @ inputs: let
-    # Supported systems for your flake packages, shell, etc.
-    system = "x86_64-linux";
-    # This is a function that generates an attribute by calling a function you
-    # pass to it, with each system as an argument
-    myLib = import ./myLib/default.nix {inherit inputs;};
-  in
+  outputs = { ... } @ inputs:
+    let
+      # Supported systems for your flake packages, shell, etc.
+      system = "x86_64-linux";
+      # This is a function that generates an attribute by calling a function you
+      # pass to it, with each system as an argument
+      myLib = import ./myLib/default.nix { inherit inputs; };
+    in
     with myLib; {
       nixosModules.default = import ./modules/nixos;
       homeManagerModules.default = import ./modules/home-manager;
