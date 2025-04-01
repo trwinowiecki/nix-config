@@ -108,6 +108,7 @@
     vim
     yarn
     python3
+    zulu21 # java
 
     # nvim Tools
     fd
@@ -137,6 +138,7 @@
     quickemu
     solaar
     gnomeExtensions.solaar-extension
+    immersed
   ];
 
   programs.kdeconnect = {
