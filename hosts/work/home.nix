@@ -27,6 +27,12 @@
         gimp
         inkscape
         kitty
+        vscode
+
+        # Work apps
+        microsoft-edge
+        slack
+        teams
 
         # Coding
         cargo
@@ -34,7 +40,7 @@
         docker
         eslint_d
         git
-        lazygit
+        postgresql
 
         # neovim
         nodejs
@@ -44,6 +50,7 @@
         yarn
         python3
         zulu21 # java
+        lazygit
 
         # nvim Tools
         fd
@@ -53,6 +60,7 @@
         tree-sitter
 
         # CLI Tools
+        lolcat
         bat
         eza
         neofetch
