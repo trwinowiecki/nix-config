@@ -40,6 +40,7 @@
       # Available through 'home-manager --flake .#your-username@your-hostname'
       homeConfigurations = {
         taylor = mkHome system ./hosts/laptop/home.nix;
+        jzl3lr = mkHome system ./hosts/work/home.nix;
       };
     };
 }

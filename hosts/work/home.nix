@@ -37,7 +37,6 @@
         lazygit
 
         # neovim
-        neovim
         nodejs
         prettierd
         stylua
@@ -69,7 +68,7 @@
         home-manager
       ])
       ++ (with pkgsUnstable; [
-        # neovim
+        neovim
       ]);
   };
 
