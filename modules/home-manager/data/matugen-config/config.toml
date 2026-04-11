@@ -1,0 +1,14 @@
+[config]
+reload_apps = false
+
+[templates.quickshell]
+input_path = "~/.config/matugen/templates/quickshell.json.template"
+output_path = "/tmp/qs_colors.json"
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty.conf.template"
+output_path = "/tmp/kitty-matugen-colors.conf"
+
+[templates.rofi]
+input_path = "~/.config/matugen/templates/rofi.rasi.template"
+output_path = "~/.config/rofi/matugen-colors.rasi"

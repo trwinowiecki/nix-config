@@ -1,145 +1,100 @@
+# Taylor's Home Manager Configuration (Work)
+#
+# This is a home-manager only config (no NixOS) for the work machine.
+#
+# Color scheme is set via nix-colors. Override with:
+#   colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 { inputs
 , outputs
 , pkgs
 , pkgsUnstable
 , lib
-, user
 , ...
 }: {
-  imports = [
-    outputs.homeManagerModules.default
-  ];
+  # Note: outputs.homeManagerModules.default is already imported by mkHome in myLib
 
-  nixpkgs = {
-    # Configure your nixpkgs instance
-    config = {
-      # Disable if you don't want unfree packages
-      allowUnfree = true;
-    };
+  # Enable features via myHomeManager options
+  myHomeManager = {
+    kitty.enable = true;              # Themed kitty terminal
+    desktop.gnome.enable = true;      # GNOME keybindings and theming
+    zsh.enable = true;                # Enhanced ZSH with plugins
+    # zsh.promptType = "starship";    # Uncomment to use Starship instead of powerlevel10k
   };
 
+  # nixpkgs.config.allowUnfree is set in myLib/default.nix via mkHome
+
+  # ============================= User Info ========================== #
   home = {
     username = "jzl3lr";
     homeDirectory = lib.mkDefault "/home/jzl3lr/";
     packages =
       (with pkgs; [
-        # Apps
+        # GUI Apps
         gimp
         inkscape
-        kitty
         vscode
 
         # Work apps
         microsoft-edge
         slack
-        teams
+        teams-for-linux  # Community wrapper since native Teams was discontinued on Linux
 
-        # Coding
+        # Development
         cargo
         clang
         docker
         eslint_d
         git
         postgresql
-
-        # neovim
         nodejs
         prettierd
         stylua
         vim
         yarn
         python3
-        zulu21 # java
+        zulu21  # Java
         lazygit
 
-        # nvim Tools
+        # CLI utilities
+        bat
+        eza
         fd
         fzf
         ripgrep
-        shfmt
-        tree-sitter
-
-        # CLI Tools
-        lolcat
-        bat
-        eza
-        neofetch
+        zoxide
         tmux
+        neofetch
         unzip
         wget
         xclip
-        zoxide
-        zsh
         gnumake
+        tree-sitter
+        shfmt
+        zsh
+
+        # Fun
+        lolcat
 
         # MISC
-        home-manager
+        # Note: home-manager is provided by programs.home-manager.enable = true
       ])
       ++ (with pkgsUnstable; [
         neovim
       ]);
   };
 
-  # Enable home-manager and git
+  # ========================== Programs ============================== #
   programs.home-manager.enable = true;
+
   programs.git = {
     enable = true;
     userName = "Taylor Winowiecki";
     userEmail = "taylor.winowiecki@gm.com";
   };
 
-  # Shell
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = {
-      update-flake = "home-manager switch --flake ~/dotfiles/nix-config#jzl3lr";
-      ls = "exa -la";
-      cat = "bat";
-      please = "sudo !!";
-    };
-
-    initExtra = ''
-      POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-      [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-    '';
-
-    plugins = [
-      {
-        name = "powerlevel10k";
-        src = pkgs.zsh-powerlevel10k;
-        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      }
-    ];
-  };
-
-  # Keyboard Shortcuts
-  dconf.settings = {
-    "org/gnome/desktop/wm/keybindings" = {
-      close = [ "<Super>q" ];
-    };
-
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-      ];
-    };
-
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>Return";
-      command = "kitty";
-      name = "open-terminal";
-    };
-
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Super>e";
-      command = "nautilus";
-      name = "open-nautilus";
-    };
+  # Host-specific shell aliases (base config from myHomeManager.zsh module)
+  programs.zsh.shellAliases = {
+    update-flake = "home-manager switch --flake ~/dotfiles/nix-config#jzl3lr";
   };
 
   # Nicely reload system units when changing configs

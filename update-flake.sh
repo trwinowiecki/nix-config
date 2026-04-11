@@ -1,19 +1,26 @@
-#! /bin/bash
+#!/usr/bin/env bash
+# Update script for Taylor's NixOS configuration
+# Usage: ./update-flake.sh [--trace]
+#   --trace: Enable --show-trace for debugging build errors
 
-if [ $0 ]; then
+set -e
 
-echo sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos --show-trace
-sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos --show-trace
+FLAKE_DIR=~/dotfiles/nix-config
 
-echo home-manager switch --flake ~/dotfiles/nix-config#taylor --show-trace
-home-manager switch --flake ~/dotfiles/nix-config#taylor --show-trace
-
+if [ "$1" = "--trace" ] || [ "$1" = "-t" ]; then
+  TRACE_FLAG="--show-trace"
 else
-
-echo sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos;
-sudo nixos-rebuild switch --flake ~/dotfiles/nix-config#hp-nixos;
-
-echo home-manager switch --flake ~/dotfiles/nix-config#taylor
-home-manager switch --flake ~/dotfiles/nix-config#taylor
-
+  TRACE_FLAG=""
 fi
+
+echo "==> Rebuilding NixOS system..."
+echo "sudo nixos-rebuild switch --flake ${FLAKE_DIR}#hp-nixos ${TRACE_FLAG}"
+sudo nixos-rebuild switch --flake "${FLAKE_DIR}#hp-nixos" ${TRACE_FLAG}
+
+echo ""
+echo "==> Switching home-manager configuration..."
+echo "home-manager switch --flake ${FLAKE_DIR}#taylor ${TRACE_FLAG}"
+home-manager switch --flake "${FLAKE_DIR}#taylor" ${TRACE_FLAG}
+
+echo ""
+echo "==> Update complete!"

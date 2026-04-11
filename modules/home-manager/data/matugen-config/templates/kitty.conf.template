@@ -1,0 +1,38 @@
+# Matugen-generated Kitty colors
+# Include this in kitty.conf with: include /tmp/kitty-matugen-colors.conf
+
+foreground {{colors.on_surface.hex}}
+background {{colors.surface.hex}}
+selection_foreground {{colors.on_primary.hex}}
+selection_background {{colors.primary.hex}}
+
+cursor {{colors.on_surface.hex}}
+cursor_text_color {{colors.surface.hex}}
+
+url_color {{colors.primary.hex}}
+
+# Tab bar
+active_tab_foreground {{colors.on_primary.hex}}
+active_tab_background {{colors.primary.hex}}
+inactive_tab_foreground {{colors.on_surface_variant.hex}}
+inactive_tab_background {{colors.surface_container.hex}}
+
+# Normal colors
+color0 {{colors.surface.hex}}
+color1 {{colors.error.hex}}
+color2 {{colors.tertiary.hex}}
+color3 {{colors.secondary.hex}}
+color4 {{colors.primary.hex}}
+color5 {{colors.tertiary.hex}}
+color6 {{colors.tertiary.hex}}
+color7 {{colors.on_surface.hex}}
+
+# Bright colors
+color8 {{colors.outline.hex}}
+color9 {{colors.error.hex}}
+color10 {{colors.tertiary.hex}}
+color11 {{colors.secondary.hex}}
+color12 {{colors.primary.hex}}
+color13 {{colors.tertiary.hex}}
+color14 {{colors.tertiary.hex}}
+color15 {{colors.on_surface.hex}}

@@ -1,0 +1,5 @@
+module QuickshellComponents
+
+Scaler 1.0 Scaler.qml
+MatugenColors 1.0 MatugenColors.qml
+singleton WindowRegistry 1.0 WindowRegistry.js

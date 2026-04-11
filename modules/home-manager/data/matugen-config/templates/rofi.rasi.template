@@ -1,0 +1,11 @@
+/* Matugen-generated Rofi colors */
+/* Include with: @import "matugen-colors.rasi" */
+
+* {
+    background:     {{colors.surface.hex}};
+    background-alt: {{colors.surface_container.hex}};
+    foreground:     {{colors.on_surface.hex}};
+    selected:       {{colors.primary.hex}};
+    active:         {{colors.tertiary.hex}};
+    urgent:         {{colors.error.hex}};
+}

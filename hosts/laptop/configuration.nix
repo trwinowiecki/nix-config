@@ -12,6 +12,7 @@
 
   myNixOS = {
     canon-printer.enable = true;
+    desktop.hyprland.enable = true;  # Toggleable: gnome, kde, hyprland, niri
   };
 
   # Set your time zone.
@@ -46,6 +47,7 @@
       extraGroups = [ "networkmanager" "wheel" "docker" ];
       packages = with pkgs; [
         firefox
+        iio-sensor-proxy
       ];
     };
   };
@@ -54,27 +56,19 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+
+  hardware.bluetooth  = {
+    enable = true;
+    powerOnBoot = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -132,19 +126,12 @@
 
     # MISC
     home-manager
-    gnome.gnome-tweaks
     gtk-engine-murrine
     xdg-utils
     quickemu
     solaar
-    gnomeExtensions.solaar-extension
     immersed
   ];
-
-  programs.kdeconnect = {
-    enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
-  };
 
   # This setups a SSH server. Very important if you're setting up a headless system.
   # Feel free to remove if you don't need it.
@@ -159,6 +146,13 @@
     };
   };
 
+  # Vial required rule
+  services.udev.extraRules = ''
+    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess"
+  '';
+
+  services.flatpak.enable = true;
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }
