@@ -2,10 +2,10 @@
 /* Include with: @import "matugen-colors.rasi" */
 
 * {
-    background:     {{colors.surface.hex}};
-    background-alt: {{colors.surface_container.hex}};
-    foreground:     {{colors.on_surface.hex}};
-    selected:       {{colors.primary.hex}};
-    active:         {{colors.tertiary.hex}};
-    urgent:         {{colors.error.hex}};
+    background:     {{colors.surface.default.hex}};
+    background-alt: {{colors.surface_container.default.hex}};
+    foreground:     {{colors.on_surface.default.hex}};
+    selected:       {{colors.primary.default.hex}};
+    active:         {{colors.tertiary.default.hex}};
+    urgent:         {{colors.error.default.hex}};
 }

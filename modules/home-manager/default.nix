@@ -53,6 +53,10 @@
 
       home.packages = with pkgs; [ matugen ];
 
+      home.activation.ensureMatugenCache = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        mkdir -p "$HOME/.cache/matugen"
+      '';
+
       home.file.".local/bin/matugen-update" = {
         executable = true;
         text = ''
@@ -69,10 +73,10 @@
 
           if [ -n "$WALLPAPER" ] && [ -f "$WALLPAPER" ]; then
             echo "Generating colors from: $WALLPAPER"
-            matugen image "$WALLPAPER"
+            matugen image "$WALLPAPER" --mode "$(cat ~/.config/hypr/theme_mode 2>/dev/null || echo dark)"
 
             # Signal QuickShell to reload colors (it polls /tmp/qs_colors.json)
-            echo "Colors updated at /tmp/qs_colors.json"
+            echo "Colors updated at /tmp/qs_colors.json and ~/.config/hypr/colors.conf"
           else
             echo "Error: No valid wallpaper found"
             exit 1

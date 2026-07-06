@@ -56,6 +56,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # HP laptop MediaTek MT7921 USB BT (13d3:3567) fails HCI init on 6.12.x
+  # (hci0 stuck at 00:00:00:00:00:00, bluetoothctl: no default controller).
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
+
+  hardware.enableRedistributableFirmware = true;
+
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -64,11 +70,28 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.extraConfig."10-bluez" = {
+      "monitor.bluez.properties" = {
+        "bluez5.roles" = [ "a2dp_sink" "a2dp_source" "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+        "bluez5.enable-sbc-xq" = true;
+        "bluez5.enable-msbc" = true;
+        "bluez5.enable-hw-volume" = true;
+      };
+    };
   };
 
-  hardware.bluetooth  = {
+  hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        FastConnectable = true;
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -79,6 +102,43 @@
 
   # Sensors
   hardware.sensor.iio.enable = true;
+
+  # Power profiles (battery saver / performance in QuickShell battery widget)
+  services.power-profiles-daemon.enable = true;
+
+  # Reset stuck MT7921 USB BT before bluetoothd starts (kernel/driver race on boot).
+  systemd.services.bluetooth-usb-reset = {
+    description = "Reset MediaTek USB Bluetooth if HCI is uninitialized";
+    before = [ "bluetooth.service" ];
+    after = [ "systemd-modules-load.service" "local-fs.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+    script = ''
+      sleep 3
+      if ! ${pkgs.usbutils}/bin/lsusb -d 13d3:3567 >/dev/null 2>&1; then
+        exit 0
+      fi
+
+      needs_reset=0
+      if ${pkgs.bluez}/bin/hciconfig hci0 2>/dev/null | grep -q "00:00:00:00:00:00"; then
+        needs_reset=1
+      elif ${pkgs.bluez}/bin/hciconfig hci0 2>/dev/null | grep -q "DOWN"; then
+        needs_reset=1
+      elif ! ${pkgs.bluez}/bin/bluetoothctl list 2>/dev/null | grep -q "^Controller"; then
+        needs_reset=1
+      fi
+
+      if [ "$needs_reset" = "1" ]; then
+        ${pkgs.kmod}/bin/modprobe -r btusb || true
+        sleep 2
+        ${pkgs.kmod}/bin/modprobe btusb
+        sleep 2
+      fi
+    '';
+  };
 
   # Shell
   programs.zsh.enable = true;

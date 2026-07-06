@@ -26,6 +26,11 @@
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+
+    rishot = {
+      url = "github:Gakuseei/rishot";
+      flake = false;
+    };
   };
 
   outputs = { ... } @ inputs:

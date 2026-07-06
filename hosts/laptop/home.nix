@@ -80,7 +80,8 @@
 
         # Tools
         rpi-imager
-        claude-code
+        code-cursor
+        go
       ]);
   };
 

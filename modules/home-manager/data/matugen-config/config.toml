@@ -11,4 +11,8 @@ output_path = "/tmp/kitty-matugen-colors.conf"
 
 [templates.rofi]
 input_path = "~/.config/matugen/templates/rofi.rasi.template"
-output_path = "~/.config/rofi/matugen-colors.rasi"
+output_path = "~/.cache/matugen/rofi-colors.rasi"
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland.conf.template"
+output_path = "~/.config/hypr/colors.conf"

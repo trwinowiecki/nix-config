@@ -157,3 +157,4 @@ home.packages =
 | `modules/nixos/default.nix` | NixOS feature/bundle system |
 | `modules/home-manager/default.nix` | nix-colors integration |
 | `modules/home-manager/features/kitty.nix` | Themed terminal config |
+| `modules/home-manager/data/hyprland-quickshell/README.md` | Hyprland + QuickShell desktop guide |
