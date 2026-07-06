@@ -222,7 +222,7 @@ in
         "ALT, F, fullscreen, 1"
         "ALT, W, killactive,"
         "ALT, R, submap, resize"
-9       "ALT, slash, togglesplit,"
+        "ALT, slash, togglesplit,"
         "ALT, comma, togglegroup,"
         "ALT SHIFT, minus, splitratio, -0.05"
         "ALT SHIFT, equal, splitratio, +0.05"
